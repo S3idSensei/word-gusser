@@ -239,8 +239,8 @@ h1 {
 
 /* Laptop mode: hide action buttons and maximize word area */
 .laptop-mode .actions { display: none; }
-.laptop-mode .stage { grid-template-rows: 1fr; padding-bottom: 12px; }
-.laptop-mode .word { font-size: clamp(36px, 9svh, 128px); }
+.laptop-mode .stage { grid-template-rows: 1fr; padding: 8px 12px; }
+.laptop-mode .word { font-size: clamp(64px, min(18svh, 22vw), 220px); line-height: 1.08; }
 .modal__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 
 
