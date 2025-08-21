@@ -143,9 +143,9 @@ h1 {
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: clamp(34px, 7vh, 90px);
-  font-size: clamp(34px, 7svh, 90px);
-  line-height: 1.15;
+  font-size: clamp(40px, 9.5vh, 112px);
+  font-size: clamp(40px, 9.5svh, 112px);
+  line-height: 1.1;
   font-weight: 800;
   letter-spacing: 0.5px;
   padding: 6px 10px;
@@ -196,7 +196,7 @@ h1 {
   .team-card { padding: 10px; }
   .team-card__score { font-size: 24px; }
   .stage { padding: 16px; gap: 12px; }
-  .word { min-height: 120px; }
+  .word { min-height: 120px; font-size: clamp(36px, 8svh, 100px); }
   .actions { gap: 12px; }
   .actions .btn { min-height: 80px; }
 }
@@ -209,7 +209,7 @@ h1 {
   .team-card { padding: 8px; }
   .team-card__score { font-size: 22px; }
   .stage { padding: 12px; gap: 10px; }
-  .word { min-height: 90px; }
+  .word { min-height: 90px; font-size: clamp(32px, 7svh, 92px); }
   .actions { gap: 10px; }
   .actions .btn { min-height: 64px; }
 }
