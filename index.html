@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>لعبة الكلمات - فريقان</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="app__header">
+        <h1>لعبة التخمين</h1>
+        <div class="timer-area">
+          <div class="timer-display" id="timerDisplay">01:00</div>
+          <button id="pauseBtn" class="btn hidden">إيقاف مؤقت</button>
+          <div class="words-left" id="wordsLeft">متبقي: 0</div>
+          <button id="openSettingsBtn" class="btn">الإعدادات</button>
+          <button id="startRoundBtn" class="btn btn--primary">ابدأ الجولة</button>
+        </div>
+      </header>
+
+      <div id="settingsModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+        <div class="modal__backdrop" id="closeSettingsBackdrop"></div>
+        <div class="modal__content">
+          <div class="modal__header">
+            <h2 id="settingsTitle">الإعدادات</h2>
+            <button id="closeSettingsBtn" class="btn">إغلاق</button>
+          </div>
+          <div class="controls">
+            <div class="controls__row">
+              <label class="field">
+                <span>اسم الفريق 1</span>
+                <input id="team1Name" type="text" value="الفريق 1" />
+              </label>
+              <label class="field">
+                <span>اسم الفريق 2</span>
+                <input id="team2Name" type="text" value="الفريق 2" />
+              </label>
+              <label class="field field--small">
+                <span>الوقت (ثوانٍ)</span>
+                <input id="roundSeconds" type="number" min="10" max="600" step="5" value="60" />
+              </label>
+              <label class="field field--small">
+                <span>فريق البداية</span>
+                <select id="startingTeam">
+                  <option value="0" selected>الفريق 1</option>
+                  <option value="1">الفريق 2</option>
+                </select>
+              </label>
+            </div>
+            <div class="controls__row">
+              <button id="fullscreenBtn" class="btn">ملء الشاشة</button>
+              <button id="resetScoresBtn" class="btn btn--warning">تصفير النقاط</button>
+              <button id="reloadWordsBtn" class="btn">إعادة الكلمات</button>
+              <button id="softResetBtn" class="btn">إعادة الجولة</button>
+              <button id="fullResetBtn" class="btn">إعادة ضبط اللعبة</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="scoreboard" id="scoreboard">
+        <div class="team-card team-card--active" id="team1Card">
+          <div class="team-card__name" id="team1Label">الفريق 1</div>
+          <div class="team-card__score"><span id="team1Score">0</span></div>
+        </div>
+        <div class="team-card" id="team2Card">
+          <div class="team-card__name" id="team2Label">الفريق 2</div>
+          <div class="team-card__score"><span id="team2Score">0</span></div>
+        </div>
+      </section>
+
+      <main class="stage">
+        <div class="word" id="word">جاهز؟ اضغط "ابدأ الجولة"</div>
+        <div class="actions">
+          <button id="correctBtn" class="btn btn--success" disabled>صحيح (+1)</button>
+          <button id="skipBtn" class="btn btn--danger" disabled>تخطَّ (-1)</button>
+        </div>
+      </main>
+
+      
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+  </html>
+
+
