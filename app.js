@@ -308,7 +308,8 @@ function endRound() {
   } else {
     setWord('انتهت الجولة! اضغط "ابدأ الجولة" لدور الفريق التالي.');
   }
-  if (settingsModal) settingsModal.classList.remove('hidden');
+  // Keep settings modal hidden after round ends
+  if (settingsModal) settingsModal.classList.add('hidden');
   if (pauseBtn) pauseBtn.classList.add('hidden');
   updateWordsLeft();
 }
