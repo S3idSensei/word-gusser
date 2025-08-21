@@ -130,8 +130,8 @@ h1 {
   display: grid;
   grid-template-rows: 1fr auto;
   align-items: stretch;
-  justify-items: center;
-  gap: 8px;
+  justify-items: stretch;
+  gap: 10px;
   flex: 1;
   min-height: 0;
   overflow: hidden;
@@ -139,9 +139,12 @@ h1 {
 
 .word {
   min-height: 0;
+  height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  justify-self: stretch;
   text-align: center;
   font-size: clamp(34px, 7vh, 90px);
   font-size: clamp(34px, 7svh, 90px);
@@ -150,7 +153,6 @@ h1 {
   letter-spacing: 0.5px;
   padding: 6px 10px;
   overflow-wrap: anywhere;
-  align-self: stretch;
 }
 
 .actions { 
@@ -232,10 +234,7 @@ h1 {
 
 /* Larger word on big landscape tablets (e.g., Galaxy Tab S9+ in horizontal) */
 @media (orientation: landscape) and (min-height: 700px) and (min-width: 1000px) {
-  .stage { padding: 8px; gap: 6px; }
-  .actions { gap: 6px; }
-  .actions .btn { min-height: 56px; }
-  .word { font-size: clamp(60px, 24svh, 320px); line-height: 1.02; letter-spacing: 0; }
+  .word { font-size: clamp(40px, 9svh, 128px); line-height: 1.1; }
 }
 
 
