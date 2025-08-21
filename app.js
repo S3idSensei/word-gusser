@@ -145,6 +145,7 @@ const fullResetBtn = document.getElementById('fullResetBtn');
 const pauseBtn = document.getElementById('pauseBtn');
 const wordsLeftEl = document.getElementById('wordsLeft');
 const settingsModal = document.getElementById('settingsModal');
+const laptopModeInput = document.getElementById('laptopMode');
 const openSettingsBtn = document.getElementById('openSettingsBtn');
 const closeSettingsBtn = document.getElementById('closeSettingsBtn');
 const closeSettingsBackdrop = document.getElementById('closeSettingsBackdrop');
@@ -219,12 +220,6 @@ function updateScoresUI() {
 
 function setWord(text) {
   wordEl.textContent = text;
-  // Resize the word to fill available vertical space
-  if (typeof requestAnimationFrame !== 'undefined') {
-    requestAnimationFrame(autoFitWord);
-  } else {
-    setTimeout(autoFitWord, 0);
-  }
 }
 
 function updateTeamNames() {
@@ -416,7 +411,8 @@ function persist() {
       team1Name: (team1NameInput.value || 'الفريق 1').trim(),
       team2Name: (team2NameInput.value || 'الفريق 2').trim(),
       roundDuration: Math.max(5, Math.min(600, parseInt(roundSecondsInput.value || '60', 10))),
-      startingTeam: startingTeamSelect ? parseInt(startingTeamSelect.value, 10) : 0
+      startingTeam: startingTeamSelect ? parseInt(startingTeamSelect.value, 10) : 0,
+      laptopMode: !!(laptopModeInput && laptopModeInput.checked)
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
   } catch (_) { /* ignore */ }
@@ -434,6 +430,7 @@ function restore() {
     if (typeof data.team2Name === 'string') team2NameInput.value = data.team2Name;
     if (typeof data.roundDuration === 'number') roundSecondsInput.value = String(data.roundDuration);
     if (typeof data.startingTeam === 'number' && startingTeamSelect) startingTeamSelect.value = String(data.startingTeam);
+    if (typeof data.laptopMode === 'boolean' && laptopModeInput) laptopModeInput.checked = data.laptopMode;
   } catch (_) { /* ignore */ }
 }
 
@@ -485,63 +482,6 @@ function updateWordsLeft() {
   wordsLeftEl.textContent = `متبقي: ${left}`;
 }
 updateWordsLeft();
-
-// Auto-fit the main word text to the container height
-function autoFitWord() {
-  const container = wordEl;
-  if (!container) return;
-  const maxHeight = container.clientHeight;
-  const maxWidth = container.clientWidth;
-  if (maxHeight <= 0 || maxWidth <= 0) return;
-
-  // Binary search optimal font size that fits both height and width
-  let low = 18; // px
-  let high = Math.max(18, Math.min(320, Math.floor(maxHeight))); // conservative upper bound
-  let best = low;
-  const iterations = 14;
-
-  // Ensure wrapping is allowed for very long words
-  container.style.whiteSpace = 'normal';
-
-  for (let i = 0; i < iterations; i++) {
-    const mid = Math.floor((low + high) / 2);
-    container.style.fontSize = `${mid}px`;
-    // Force reflow read
-    const fitsHeight = container.scrollHeight <= maxHeight;
-    const fitsWidth = container.scrollWidth <= maxWidth;
-
-    if (fitsHeight && fitsWidth) {
-      best = mid;
-      low = mid + 1;
-    } else {
-      high = mid - 1;
-    }
-  }
-
-  container.style.fontSize = `${best}px`;
-}
-
-// Refit on window resize and when stage size changes
-window.addEventListener('resize', () => {
-  if (typeof requestAnimationFrame !== 'undefined') {
-    requestAnimationFrame(autoFitWord);
-  } else {
-    setTimeout(autoFitWord, 0);
-  }
-});
-
-try {
-  if ('ResizeObserver' in window) {
-    const stageEl = document.querySelector('.stage');
-    if (stageEl) {
-      const ro = new ResizeObserver(() => autoFitWord());
-      ro.observe(stageEl);
-    }
-  }
-} catch (_) { /* ignore */ }
-
-// Initial fit
-autoFitWord();
 
 // Live team name updates
 team1NameInput.addEventListener('input', updateTeamNames);
@@ -596,5 +536,19 @@ if (closeSettingsBtn && settingsModal) {
 if (closeSettingsBackdrop && settingsModal) {
   closeSettingsBackdrop.addEventListener('click', () => settingsModal.classList.add('hidden'));
 }
+
+// Laptop mode toggle
+function applyLaptopModeClass() {
+  const enabled = !!(laptopModeInput && laptopModeInput.checked);
+  document.body.classList.toggle('laptop-mode', enabled);
+}
+if (laptopModeInput) {
+  laptopModeInput.addEventListener('change', () => {
+    applyLaptopModeClass();
+    persist();
+  });
+}
+// Apply on load after restore
+applyLaptopModeClass();
 
 

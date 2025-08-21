@@ -128,9 +128,9 @@ h1 {
   border-radius: 18px;
   padding: 16px;
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto auto;
   align-items: stretch;
-  justify-items: stretch;
+  justify-items: center;
   gap: 10px;
   flex: 1;
   min-height: 0;
@@ -139,12 +139,9 @@ h1 {
 
 .word {
   min-height: 0;
-  height: 100%;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  justify-self: stretch;
   text-align: center;
   font-size: clamp(34px, 7vh, 90px);
   font-size: clamp(34px, 7svh, 90px);
@@ -152,7 +149,6 @@ h1 {
   font-weight: 800;
   letter-spacing: 0.5px;
   padding: 6px 10px;
-  overflow-wrap: anywhere;
 }
 
 .actions { 
@@ -232,11 +228,6 @@ h1 {
   .actions .btn { min-height: 56px; }
 }
 
-/* Larger word on big landscape tablets (e.g., Galaxy Tab S9+ in horizontal) */
-@media (orientation: landscape) and (min-height: 700px) and (min-width: 1000px) {
-  .word { font-size: clamp(40px, 9svh, 128px); line-height: 1.1; }
-}
-
 
 /* utilities */
 .hidden { display: none !important; }
@@ -245,6 +236,11 @@ h1 {
 .modal { position: fixed; inset: 0; display: grid; place-items: center; z-index: 1000; overflow: auto; }
 .modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.55); }
 .modal__content { position: relative; width: min(720px, 92vw); background: #0d1430; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.45); max-height: 90dvh; overflow: auto; }
+
+/* Laptop mode: hide action buttons and maximize word area */
+.laptop-mode .actions { display: none; }
+.laptop-mode .stage { grid-template-rows: 1fr; padding-bottom: 12px; }
+.laptop-mode .word { font-size: clamp(36px, 9svh, 128px); }
 .modal__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 
 
