@@ -17,16 +17,18 @@ body {
   font-family: 'Tajawal', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background: radial-gradient(1200px 800px at 10% 10%, #0e1430, #060a1a) fixed;
   color: var(--text);
+  overflow: hidden;
 }
 
 .app {
   max-width: none;
   width: 100vw;
-  min-height: 100vh;
+  height: 100dvh;
   margin: 0;
   padding: 16px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .app__header {
@@ -127,6 +129,8 @@ h1 {
   gap: 18px;
   flex: 1;
   justify-content: space-between;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .word {
@@ -176,14 +180,27 @@ h1 {
   .word { font-size: 30px; min-height: 100px; }
 }
 
+/* Reduce vertical footprint on short screens to avoid scrolling */
+@media (max-height: 820px) {
+  .stage { padding: 16px; }
+  .word { min-height: 140px; }
+  .actions .btn { min-height: 88px; }
+}
+
+@media (max-height: 700px) {
+  .stage { padding: 12px; }
+  .word { min-height: 100px; }
+  .actions .btn { min-height: 72px; }
+}
+
 
 /* utilities */
 .hidden { display: none !important; }
 
 /* Modal */
-.modal { position: fixed; inset: 0; display: grid; place-items: center; z-index: 1000; }
+.modal { position: fixed; inset: 0; display: grid; place-items: center; z-index: 1000; overflow: auto; }
 .modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.55); }
-.modal__content { position: relative; width: min(720px, 92vw); background: #0d1430; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.45); }
+.modal__content { position: relative; width: min(720px, 92vw); background: #0d1430; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.45); max-height: 90dvh; overflow: auto; }
 .modal__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 
 
