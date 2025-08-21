@@ -12,6 +12,7 @@
 
 * { box-sizing: border-box; }
 html, body { height: 100%; }
+html { overflow: hidden; }
 body {
   margin: 0;
   font-family: 'Tajawal', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -23,6 +24,9 @@ body {
 .app {
   max-width: none;
   width: 100vw;
+  min-height: 100vh;
+  height: 100vh;
+  height: 100svh;
   height: 100dvh;
   margin: 0;
   padding: 16px;
@@ -122,28 +126,29 @@ h1 {
   background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 18px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
+  padding: 16px;
+  display: grid;
+  grid-template-rows: auto auto;
+  align-items: stretch;
+  justify-items: center;
+  gap: 10px;
   flex: 1;
-  justify-content: space-between;
   min-height: 0;
   overflow: hidden;
 }
 
 .word {
-  min-height: 200px;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: clamp(48px, 12vmin, 120px);
+  font-size: clamp(34px, 7vh, 90px);
+  font-size: clamp(34px, 7svh, 90px);
   line-height: 1.15;
   font-weight: 800;
   letter-spacing: 0.5px;
-  padding: 8px 12px;
+  padding: 6px 10px;
 }
 
 .actions { 
@@ -153,7 +158,7 @@ h1 {
   width: 100%;
 }
 .actions .btn {
-  min-height: 110px;
+  min-height: 72px;
   font-size: clamp(20px, 4.2vmin, 36px);
   font-weight: 800;
 }
@@ -182,15 +187,45 @@ h1 {
 
 /* Reduce vertical footprint on short screens to avoid scrolling */
 @media (max-height: 820px) {
-  .stage { padding: 16px; }
-  .word { min-height: 140px; }
-  .actions .btn { min-height: 88px; }
+  .app { padding: 12px; }
+  .app__header { gap: 8px; }
+  h1 { font-size: 24px; margin: 8px 0; }
+  .timer-display { padding: 8px 10px; min-width: 84px; }
+  .words-left { padding: 6px 8px; }
+  .scoreboard { margin: 10px 0; gap: 8px; }
+  .team-card { padding: 10px; }
+  .team-card__score { font-size: 24px; }
+  .stage { padding: 16px; gap: 12px; }
+  .word { min-height: 120px; }
+  .actions { gap: 12px; }
+  .actions .btn { min-height: 80px; }
 }
 
 @media (max-height: 700px) {
-  .stage { padding: 12px; }
-  .word { min-height: 100px; }
-  .actions .btn { min-height: 72px; }
+  .app { padding: 10px; }
+  h1 { font-size: 20px; margin: 6px 0; }
+  .timer-display { padding: 6px 8px; min-width: 76px; }
+  .scoreboard { margin: 8px 0; gap: 8px; }
+  .team-card { padding: 8px; }
+  .team-card__score { font-size: 22px; }
+  .stage { padding: 12px; gap: 10px; }
+  .word { min-height: 90px; }
+  .actions { gap: 10px; }
+  .actions .btn { min-height: 64px; }
+}
+
+@media (max-height: 600px) {
+  .app { padding: 8px; }
+  h1 { font-size: 18px; margin: 4px 0; }
+  .timer-display { padding: 4px 6px; min-width: 70px; }
+  .words-left { padding: 4px 6px; }
+  .scoreboard { margin: 6px 0; gap: 6px; }
+  .team-card { padding: 6px; }
+  .team-card__score { font-size: 20px; }
+  .stage { padding: 10px; gap: 8px; }
+  .word { font-size: clamp(28px, 6svh, 80px); }
+  .actions { gap: 8px; }
+  .actions .btn { min-height: 56px; }
 }
 
 
