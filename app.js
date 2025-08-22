@@ -162,6 +162,7 @@ const team1NameInput = document.getElementById('team1Name');
 const team2NameInput = document.getElementById('team2Name');
 const roundSecondsInput = document.getElementById('roundSeconds');
 const startingTeamSelect = document.getElementById('startingTeam');
+const themeSelect = document.getElementById('themeSelect');
 
 // Audio (end beep) - short, generated via WebAudio
 function playEndBeep() {
@@ -413,7 +414,8 @@ function persist() {
       team2Name: (team2NameInput.value || 'الفريق 2').trim(),
       roundDuration: Math.max(5, Math.min(600, parseInt(roundSecondsInput.value || '60', 10))),
       startingTeam: startingTeamSelect ? parseInt(startingTeamSelect.value, 10) : 0,
-      laptopMode: !!(laptopModeInput && laptopModeInput.checked)
+      laptopMode: !!(laptopModeInput && laptopModeInput.checked),
+      themeMode: themeSelect ? themeSelect.value : 'system'
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
   } catch (_) { /* ignore */ }
@@ -432,6 +434,7 @@ function restore() {
     if (typeof data.roundDuration === 'number') roundSecondsInput.value = String(data.roundDuration);
     if (typeof data.startingTeam === 'number' && startingTeamSelect) startingTeamSelect.value = String(data.startingTeam);
     if (typeof data.laptopMode === 'boolean' && laptopModeInput) laptopModeInput.checked = data.laptopMode;
+    if (typeof data.themeMode === 'string' && themeSelect) themeSelect.value = data.themeMode;
   } catch (_) { /* ignore */ }
 }
 
@@ -551,5 +554,29 @@ if (laptopModeInput) {
 }
 // Apply on load after restore
 applyLaptopModeClass();
+
+// Theme handling
+const prefersDark = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+function computeTheme(mode) {
+  if (mode === 'dark') return 'dark';
+  if (mode === 'light') return 'light';
+  return prefersDark && prefersDark.matches ? 'dark' : 'light';
+}
+function applyTheme() {
+  const mode = themeSelect ? themeSelect.value : 'system';
+  const theme = computeTheme(mode);
+  document.body.classList.toggle('theme-dark', theme === 'dark');
+  document.body.classList.toggle('theme-light', theme === 'light');
+}
+if (themeSelect) {
+  themeSelect.addEventListener('change', () => { applyTheme(); persist(); });
+}
+if (prefersDark && prefersDark.addEventListener) {
+  prefersDark.addEventListener('change', () => {
+    if (themeSelect && themeSelect.value === 'system') applyTheme();
+  });
+}
+// Apply on load
+applyTheme();
 
 
