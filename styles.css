@@ -275,6 +275,13 @@ body.theme-light {
 .theme-light .btn--warning { background: #fff7ed; border-color: rgba(180,83,9,0.35); color: #92400e; }
 .theme-light .btn--danger { background: #fef2f2; border-color: rgba(185,28,28,0.35); color: #7f1d1d; }
 .theme-light .btn--success { background: #ecfdf5; border-color: rgba(21,128,61,0.35); color: #065f46; }
+/* Light theme: panels and surfaces */
+.theme-light .stage { background: linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.02)); border-color: rgba(0,0,0,0.08); }
+.theme-light .team-card { background: linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.015)); border-color: rgba(0,0,0,0.08); }
+.theme-light .words-left { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.08); color: #0b1020; }
+.theme-light .modal__content { background: #ffffff; border-color: rgba(0,0,0,0.1); }
+.theme-light .modal__backdrop { background: rgba(0,0,0,0.35); }
+.theme-light .timer-display { color: #0b1020; }
 .modal__header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 
 
