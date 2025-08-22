@@ -162,6 +162,11 @@ h1 {
   font-size: clamp(20px, 4.2vmin, 36px);
   font-weight: 800;
 }
+.actions .btn.btn--icon,
+.actions .btn.btn--icon-only {
+  display: inline-grid;
+  place-items: center;
+}
 .btn {
   background: #1b254b;
   color: var(--text);
@@ -187,6 +192,12 @@ h1 {
   place-items: center;
 }
 .btn--icon svg { display: block; }
+
+/* Large icon-only buttons in actions row should expand to full height/width */
+.btn--icon-only {
+  display: inline-grid;
+  place-items: center;
+}
 
 .btn--primary { background: #1f2a5c; }
 .btn--warning { background: #3b2a09; border-color: rgba(245,158,11,0.5); color: #ffd48a; }
